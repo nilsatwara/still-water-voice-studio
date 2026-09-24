@@ -1,0 +1,46 @@
+﻿<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Voice Cloning Studio | Stillwater</title><link rel="stylesheet" href="/static/style.css?v=11"><link rel="stylesheet" href="/static/clone.css?v=4"></head>
+<body class="clone-page">
+<aside class="navigation"><a class="brand" href="/"><span class="brand-icon">~</span><span>stillwater<small>VOICE STUDIO</small></span></a><span class="nav-label">WORKSPACE</span><a class="nav-item" href="/"><span>T</span><span>Text to speech</span></a><a class="nav-item active" href="/voice-cloning"><span>V</span><span>Voice cloning</span></a><a class="nav-item" href="/#recordings"><span>R</span><span>Recordings</span></a><div class="nav-bottom"><span class="small-dot"></span> Local and private<p>Your reference stays on this computer.<br>Powered by Chatterbox Nano.</p></div></aside>
+<div class="app"><header class="topbar"><span>Workspace <span class="slash">/</span> <b>Voice cloning</b></span><div><span id="clone-connection" class="connection">Checking Chatterbox...</span><button id="clone-theme" class="icon-button" aria-label="Switch theme">&#9680;</button></div></header>
+<main class="clone-main">
+<section class="clone-hero"><div><span class="eyebrow">LOCAL VOICE LAB</span><h1>Turn one voice sample into your narrator.</h1><p>Upload a clean MP3 or WAV, save the voice once, then create downloadable MP3 and WAV recordings with it.</p></div><div class="privacy-pill"><span></span> Runs locally on CPU</div></section>
+<div id="clone-banner" class="banner" hidden></div>
+<section class="compatibility card"><div><strong>Cloning engine</strong><span>Chatterbox Nano 110M</span></div><div><strong>Supported input</strong><span>MP3, WAV, M4A, FLAC</span></div><div><strong>Other studio engines</strong><span>Edge, Kokoro, Kitten and Piper use fixed voices</span></div></section>
+<div class="clone-layout">
+  <div class="clone-flow">
+    <section class="card clone-step" id="reference-step"><header><span class="step-number">1</span><div><h2>Add a reference voice</h2><p>Use 6-30 seconds of one speaker, without music or overlapping voices.</p></div></header>
+      <div class="clone-form"><label for="clone-name">Voice name</label><input id="clone-name" maxlength="60" placeholder="Example: My warm narrator">
+      <label for="clone-file">Reference recording</label><label class="drop-zone" for="clone-file"><input id="clone-file" type="file" accept="audio/wav,audio/mpeg,audio/mp4,audio/flac,.wav,.mp3,.m4a,.flac" hidden><span class="upload-mark">&#8593;</span><strong id="file-title">Choose an MP3 or WAV</strong><small id="file-help">Maximum 15 MB. Audio is normalized to mono 24 kHz locally.</small></label>
+      <div class="source-divider"><span>or record your voice now</span></div>
+      <section id="voice-recorder" class="voice-recorder" aria-labelledby="recorder-title">
+        <div class="recorder-copy"><span class="microphone-mark" aria-hidden="true">●</span><div><strong id="recorder-title">Record your voice</strong><small id="record-status">Ready to use your computer microphone</small></div><time id="record-time">0:00</time></div>
+        <div class="record-meter" aria-hidden="true"><span id="record-level"></span></div>
+        <div class="record-actions"><button id="start-recording" type="button" class="secondary">Start recording</button><button id="stop-recording" type="button" class="primary" disabled>Stop &amp; use recording</button><button id="discard-recording" type="button" class="subtle-button" hidden>Record again</button></div>
+        <p>Speak naturally for 6–30 seconds in a quiet room. Recording stops automatically at 30 seconds.</p>
+      </section>
+      <audio id="reference-player" controls hidden></audio><label class="consent"><input id="clone-consent" type="checkbox"> I have permission to use this voice sample.</label>
+      <button id="create-clone" class="primary clone-primary">Create reusable voice clone</button><div id="clone-upload-progress" class="inline-status" hidden><span class="spinner"></span><span>Preparing and securing the reference...</span></div></div>
+    </section>
+
+    <section class="card clone-step" id="script-step"><header><span class="step-number">2</span><div><h2>Write the cloned speech</h2><p>The selected cloned voice stays consistent throughout this recording.</p></div></header>
+      <div class="clone-form"><label for="clone-title">Recording title</label><input id="clone-title" maxlength="120" placeholder="My cloned narration">
+      <div class="clone-script-label"><label for="clone-script">Script</label><span><button data-clone-pause="1">+ 1s pause</button><button data-clone-pause="2">+ 2s pause</button><button data-clone-pause="3">+ 3s pause</button></span></div>
+      <textarea id="clone-script" maxlength="40000" placeholder="Type what the cloned voice should say. You can use [laugh], [sigh], or insert a real silence."></textarea><div class="clone-script-meta"><span id="clone-words">0 words</span><span>English voice cloning</span></div></div>
+    </section>
+  </div>
+
+  <aside class="clone-controls card"><div class="card-header"><h2>Clone settings</h2><button id="reset-clone-settings" class="subtle-button">Reset</button></div>
+    <div class="clone-control-body"><label for="saved-clones">Selected voice</label><select id="saved-clones"><option value="">Create or choose a cloned voice</option></select><p id="selected-clone-note" class="hint">Your saved clones will appear here.</p><button id="use-clone-tts" class="secondary clone-use-button" disabled>Use this voice in Text to Speech &rarr;</button><div class="clone-library-head"><strong>Saved cloned voices</strong><span id="clone-voice-count">0</span></div><div id="clone-voice-list" class="clone-voice-list"><p class="hint">No cloned voices saved yet.</p></div><button id="delete-clone-voices" class="secondary danger-button clone-delete-button" hidden>Delete 0 cloned voices</button>
+    <div class="slider-heading"><label for="clone-speed">Speed</label><output id="clone-speed-value">0.80x</output></div><input id="clone-speed" type="range" min="0.5" max="2" step="0.01" value="0.8"><div class="range-endpoints"><span>Slower</span><span>Faster</span></div>
+    <div class="slider-heading"><label for="clone-temperature">Variation</label><output id="clone-temperature-value">0.80</output></div><input id="clone-temperature" type="range" min="0.05" max="2" step="0.05" value="0.8"><div class="range-endpoints"><span>Steady</span><span>Expressive</span></div>
+    <label for="clone-format">Preferred export</label><select id="clone-format"><option value="mp3_44100_192">MP3 44.1 kHz &middot; 192 kbps</option><option value="mp3_48000_320">MP3 48 kHz &middot; 320 kbps</option><option value="wav_24000">WAV 24 kHz &middot; 24-bit PCM</option><option value="wav_48000">WAV 48 kHz &middot; 24-bit PCM</option></select>
+    <details><summary>Advanced generation controls</summary><label for="clone-top-p">Top-p</label><input id="clone-top-p" type="number" min="0.05" max="1" step="0.05" value="0.95"><label for="clone-top-k">Top-k</label><input id="clone-top-k" type="number" min="1" max="1000" value="1000"><label for="clone-repetition">Repetition penalty</label><input id="clone-repetition" type="number" min="1" max="2" step="0.05" value="1.2"><label for="clone-seed">Reproducible seed</label><input id="clone-seed" type="number" min="0" max="2147483647" value="12345"></details>
+    <button id="generate-clone" class="primary clone-primary">Generate cloned audio</button><p class="hint centered">The job uses the studio queue, so long recordings remain safe if this page closes.</p></div>
+  </aside>
+</div>
+<section id="clone-queue" class="clone-queue card"><div class="clone-queue-head"><div><span class="eyebrow">CLONE GENERATION QUEUE</span><h2>Your cloned recordings <span id="clone-job-count" class="badge">0</span></h2><p id="clone-queue-summary">No cloned recordings yet.</p></div><div id="clone-job-actions" hidden><button id="delete-clone-jobs" class="secondary small danger-button">Delete 0 recordings</button></div></div><div id="clone-jobs" class="clone-job-list"><div class="empty"><span>~</span><h3>Your first cloned recording will appear here.</h3><p>Queue position and live generation progress will be shown automatically.</p></div></div></section>
+<footer>Stillwater Voice Studio <span>Chatterbox reference and output files stay on this computer.</span></footer>
+</main></div><div id="clone-toast" class="toast" role="status" hidden></div><script src="/static/clone.js?v=6"></script></body></html>
+
+

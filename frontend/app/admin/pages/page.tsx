@@ -1,0 +1,4 @@
+import AdminShell from '../../../components/admin/admin-shell';
+import styles from './page.module.css';
+
+export default function PagesAdmin(){return <AdminShell><header className={styles.header}><div><p>CONTENT</p><h1>Pages</h1><span>Create, publish, preview, trash and restore site pages.</span></div><button disabled>＋ New page</button></header><section className={styles.panel}><nav><b>All</b><span>Published</span><span>Drafts</span><span>Trash</span></nav><div className={styles.toolbar}><input placeholder="Search pages" disabled/><select disabled><option>All statuses</option></select></div><div className={styles.empty}><i>□</i><h2>Database connection required</h2><p>Page management is ready. Configure PostgreSQL and signed authentication to load protected CMS data.</p></div></section></AdminShell>}

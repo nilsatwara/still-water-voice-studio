@@ -1,0 +1,16 @@
+# Runtime dependencies for the isolated Chatterbox Nano worker.
+# setup_chatterbox.py installs the pinned Chatterbox source without its optional
+# Gradio interface, which the Stillwater worker does not use.
+librosa==0.11.0
+s3tokenizer>=0.2,<1
+torchaudio==2.6.0
+transformers==5.2.0
+diffusers==0.29.0
+resemble-perth @ git+https://github.com/resemble-ai/Perth.git@ff1c8ac55a976971245cdd53c18d6131ca00d993
+conformer==0.3.2
+safetensors==0.5.3
+spacy-pkuseg>=1.0.1,<2
+pykakasi==2.3.0
+pyloudnorm>=0.1.1,<1
+omegaconf>=2.3,<3
+huggingface-hub>=0.34,<2

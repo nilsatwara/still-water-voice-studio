@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Stillwater · Edge TTS Studio</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%2335654d'/%3E%3Ctext x='20' y='29' text-anchor='middle' fill='white' font-size='29'%3E≋%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header><a class="brand" href="/"><span class="brand-icon">▥</span><span>stillwater<span class="brand-sub">EDGE TTS STUDIO</span></span></a><div class="header-right"><span id="connection" class="connection">Connecting…</span><button id="theme" class="icon-button" title="Switch light or dark theme" aria-label="Switch theme">◐</button></div></header>
+  <main>
+    <section class="intro"><div><span class="eyebrow">A LITTLE SPACE FOR YOUR VOICE</span><h1>Words into calm.</h1><p>Natural voices. Your pace. One script at a time.</p></div><div class="intro-note"><span class="live-dot"></span> Saved on this computer <small>Speech generation uses the internet</small></div></section>
+    <div id="banner" role="status" hidden></div>
+    <div class="workspace">
+      <aside class="panel voice-panel">
+        <div class="panel-heading"><h2><span class="step">01</span> Choose a voice</h2><span id="voice-count" class="badge">…</span></div>
+        <label for="locale">Language & region</label><select id="locale"><option value="en-US">English (United States)</option></select>
+        <label>Gender</label><div class="segmented" id="gender"><button data-value="all" class="active" aria-pressed="true">All voices</button><button data-value="Male" aria-pressed="false">Male</button><button data-value="Female" aria-pressed="false">Female</button></div>
+        <div class="label-line"><label for="voice-search">Find your voice</label><button class="text-button" id="refresh-voices">Refresh</button></div><input id="voice-search" type="search" placeholder="Search name or personality…">
+        <div id="voice-list" class="voice-list" role="group" aria-label="Available voices"><p class="muted">Loading voices…</p></div>
+        <div class="preview-box"><span id="preview-label">Select ▶ to listen to a voice</span><audio id="preview-player" controls hidden></audio></div>
+      </aside>
+      <section class="panel compose-panel">
+        <div class="panel-heading"><h2><span class="step">02</span> Write your script</h2><button id="import-button" class="text-button">↑ Import .txt</button><input type="file" id="import-files" accept=".txt,text/plain" multiple hidden></div>
+        <div class="presets"><span>PRAYER PRESETS</span><button data-preset="deep">Deep & calm</button><button data-preset="warm">Warm & gentle</button><button data-preset="soft">Soft & caring</button></div>
+        <label class="sr-only" for="title">Script title</label><input id="title" maxlength="120" placeholder="Give this script a title (optional)">
+        <label class="sr-only" for="script">Your script</label><textarea id="script" placeholder="Let your words find their voice…&#10;&#10;Paste a prayer, reflection, or narration here.&#10;&#10;For multiple scripts, turn on Batch mode and separate each script with a line containing three dashes:&#10;---" spellcheck="true"></textarea>
+        <div class="script-info"><span id="word-count">0 words · ~0:00 audio</span><label class="check"><input type="checkbox" id="batch"> Batch mode</label></div>
+        <div id="batch-help" class="helper" hidden>Separate scripts with <b>---</b> on its own line. They enter the queue in order, with these voice settings.</div>
+        <div class="speed-heading"><label>Generation speed</label><span id="speed-note">Unhurried · 0.8×</span></div>
+        <div class="segmented speeds" id="speeds"><button data-speed="0.5">0.5×</button><button data-speed="0.6">0.6×</button><button data-speed="0.7">0.7×</button><button data-speed="0.8" class="active">0.8×</button><button data-speed="0.9">0.9×</button><button data-speed="1">1.0×</button></div>
+        <div class="sliders"><div><label for="pitch">Pitch <output id="pitch-value">−5 Hz</output></label><input type="range" id="pitch" min="-50" max="50" value="-5" step="1"><div class="range-labels"><span>Deeper</span><span>Higher</span></div></div><div><label for="volume">Volume <output id="volume-value">0%</output></label><input type="range" id="volume" min="-50" max="50" value="0" step="1"><div class="range-labels"><span>Softer</span><span>Louder</span></div></div></div>
+        <div class="selection-line"><span id="selected-voice">Andrew · English (US)</span><label class="check"><input type="checkbox" id="autoplay" checked> Auto play</label></div>
+        <button id="generate" class="primary">＋ Add to generation queue</button><div class="compose-footer"><span>MP3 + SRT + VTT</span><span>Ctrl + Enter to add</span></div>
+      </section>
+      <section class="panel queue-panel">
+        <div class="panel-heading"><h2><span class="step">03</span> Your recordings</h2><span id="queue-count" class="badge">0</span></div>
+        <div class="queue-toolbar"><span id="queue-status"><span class="live-dot"></span> Queue ready</span><button id="pause" class="text-button">Pause queue</button></div>
+        <p class="queue-explainer">First in, first out. If a script fails, it retries before the next one starts.</p>
+        <div id="jobs" class="jobs"><div class="empty"><span class="empty-icon">≋</span><h3>A quiet space, for now.</h3><p>Add your first script.<br>Your recordings will appear here.</p></div></div>
+      </section>
+    </div>
+    <footer><span>Made for thoughtful words & slower moments.</span><span>Prayer presets adjust voice, speed & pitch. Preview to find your preferred sound.</span></footer>
+  </main>
+  <div id="toast" role="status" hidden></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

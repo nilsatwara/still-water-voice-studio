@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: stillwater-voice-studio
+    runtime: python
+    plan: free
+    numInstances: 1
+    buildCommand: bash render-build.sh
+    startCommand: python server.py
+    healthCheckPath: /health
+    maxShutdownDelaySeconds: 300
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: HOST
+        value: 0.0.0.0
+      - key: STILLWATER_DATA_DIR
+        value: /tmp/stillwater-data
+      - key: STILLWATER_PROFILE
+        value: lightweight
+      - key: ENABLE_KOKORO
+        value: "false"
+      - key: ENABLE_PIPER
+        value: "false"
+      - key: ENABLE_KITTEN
+        value: "false"
+      - key: ENABLE_CHATTERBOX
+        value: "false"
+      - key: MODEL_IDLE_TIMEOUT_SECONDS
+        value: "120"
+      - key: PIPER_MODEL_CACHE_SIZE
+        value: "1"
+      - key: ISOLATE_LOCAL_ENGINES
+        value: "true"
+      - key: STILLWATER_MODEL_DIR
+        value: /opt/render/project/src/models
+      - key: CHATTERBOX_VENV
+        value: /opt/render/project/src/.venv-chatterbox
+      - key: CHATTERBOX_PYTHON
+        value: /opt/render/project/src/.venv-chatterbox/bin/python
+      - key: HF_HOME
+        value: /opt/render/project/src/.cache/huggingface
+      - key: HF_HUB_DISABLE_XET
+        value: "1"
+      - key: TOKENIZERS_PARALLELISM
+        value: "false"
+      - key: STILLWATER_USERNAME
+        value: stillwater
+      - key: STILLWATER_PASSWORD
+        sync: false
